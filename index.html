@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      text-align: center;
+    }
+
+    p {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .avatar-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .avatar-container img {
+      width: 50px; /* Adjust size as needed */
+      height: 50px; /* Adjust size as needed */
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .avatar-container span {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .buttons-container {
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 5px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="avatar-container">
+    <img src="https://cdn.discordapp.com/avatars/524975380608581644/517ecd61373bde13758d02e760beaca2.gif?size=1024" alt="Your Discord Avatar">
+    <span>sou.y</span>
+  </div>
+  <p>Welcome to the game!</p>
+
+  <div class="buttons-container">
+    <button onclick="startGame()">Start</button>
+  </div>
+</div>
+
+<script>
+function startGame() {
+  if (confirm("Are you ready to start the game?")) {
+    window.location.href = "If you want to win, click me.html";
+  }
+}
+</script>
+
+</body>
+</html>
