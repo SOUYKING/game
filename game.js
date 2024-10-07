@@ -1,122 +1,165 @@
-// Global variables for the game
-let selectedSequence = []; // To track selected boxes in Stage 2
-const correctSequence = [2, 3, 1, 4]; // Correct order for Stage 2 boxes
-let timer; // Variable for timer interval
-let timeLeft = 300; // 5 minutes in seconds (5 * 60)
-let hintsUsed = 0; // Track number of hints used
+// JavaScript for Souy's Game
 
-// Timer function to start counting down
-function startTimer() {
-  timer = setInterval(function () {
-    if (timeLeft <= 0) {
-      clearInterval(timer);
-      alert("Time's up! You lost the game. Please try again.");
-      window.location.href = "index.html"; // Redirect to index.html on timeout
-    } else {
-      timeLeft--;
-      updateTimerDisplay();
-    }
-  }, 1000); // Update timer every second
+let currentStage = 1;
+let hintCount = 0;
+const maxHints = 2;
+let timeLeft = 300; // 5 minutes timer
+let timerInterval;
+
+// Game Initialization
+function initGame() {
+  updateTimer();
+  updateHintUsage();
+  showStage(1);
+  startTimer();
 }
 
-// Function to display the timer value on the page
-function updateTimerDisplay() {
+// Timer Functionality
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimer();
+    if (timeLeft <= 0) {
+      endGame("Time's up! You've lost the game. Try again later.");
+    }
+  }, 1000);
+}
+
+function updateTimer() {
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
-  document.getElementById("timer-value").innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  document.getElementById("timer-value").innerText = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
 }
 
-// Show hints for each stage and track hint usage
+// Hint Usage
 function showHint(stage) {
-  if (hintsUsed < 2) {
-    document.getElementById(`hint${stage}`).style.display = "block"; // Display the hint for the specified stage
-    hintsUsed++;
-    document.getElementById("hints-used").innerText = `${hintsUsed}`; // Update the hints used display
+  if (hintCount < maxHints) {
+    document.getElementById(`hint${stage}`).style.display = "block";
+    hintCount++;
+    updateHintUsage();
   } else {
-    alert("You have used all your available hints!");
+    alert("You've used all your hints!");
   }
 }
 
-// Check the player's input for Stage 1 (Decrypt the Message)
+function updateHintUsage() {
+  document.getElementById("hints-used").innerText = `${hintCount} / ${maxHints}`;
+}
+
+// Stage 1: Caesar Cipher Decryption
 function checkStage1() {
-  const decryptedKey = "this is a secret message"; // Correct decrypted message
-
-  // Get player's input and trim/normalize it
-  const playerInput = document.getElementById("stage1-input").value.trim().toLowerCase();
-
-  const messageElement = document.getElementById("message1");
-
-  if (playerInput === decryptedKey) {
-    messageElement.innerText = "Correct! You've decrypted the message and unlocked the next stage.";
-    messageElement.style.color = "green";
-    document.getElementById("stage1").style.display = "none"; // Hide Stage 1
-    document.getElementById("stage2").style.display = "block"; // Show Stage 2
+  const userInput = document.getElementById("stage1-input").value.toLowerCase();
+  if (userInput === "this is a secret message") {
+    showStage(2);
   } else {
-    messageElement.innerText = "Incorrect key. Try again.";
-    messageElement.style.color = "red";
+    document.getElementById("message1").innerText = "Incorrect key. Try again.";
   }
 }
 
-// Function to handle box selection in Stage 2
-function selectBox(boxNumber) {
-  const boxElement = document.getElementById(`box${boxNumber}`);
+// Memory Game Variables
+let memoryCards = [];
+let flippedCards = [];
+let matchedPairs = 0;
 
-  // Check if the box is already in the sequence
-  if (selectedSequence.includes(boxNumber)) {
-    return; // Do nothing if the box is already selected
+// Memory Game Initialization
+function startMemoryGame() {
+  // Reset variables
+  memoryCards = [
+    "A", "A", "B", "B", "C", "C", "D", "D",
+    "E", "E", "F", "F", "G", "G", "H", "H"
+  ];
+  memoryCards = shuffle(memoryCards);
+  flippedCards = [];
+  matchedPairs = 0;
+
+  // Create memory game grid
+  const memoryGrid = document.getElementById("memory-game");
+  memoryGrid.innerHTML = ""; // Clear previous grid
+  for (let i = 0; i < memoryCards.length; i++) {
+    const card = document.createElement("div");
+    card.classList.add("memory-card");
+    card.dataset.value = memoryCards[i];
+    card.addEventListener("click", () => flipCard(card));
+    memoryGrid.appendChild(card);
   }
-
-  // Add the box number to the selected sequence
-  selectedSequence.push(boxNumber);
-
-  // Visually indicate the box is selected (highlight it)
-  boxElement.style.border = '3px solid yellow'; // Change the border color and width as a visual indicator
 }
 
-// Check if the selected sequence matches the correct sequence for Stage 2
-function checkStage2() {
-  const messageElement = document.getElementById("message2");
+// Shuffle the memory cards array
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
 
-  // Compare the selected sequence with the correct sequence
-  if (selectedSequence.join('') === correctSequence.join('')) {
-    messageElement.innerText = "Correct! You've unlocked the final stage.";
-    messageElement.style.color = "green";
-    document.getElementById("stage2").style.display = "none"; // Hide Stage 2
-    document.getElementById("final-stage").style.display = "block"; // Show the final stage
+// Flip a memory card
+function flipCard(card) {
+  if (flippedCards.length < 2 && !card.classList.contains("flipped")) {
+    card.classList.add("flipped");
+    card.innerText = card.dataset.value;
+    flippedCards.push(card);
+
+    if (flippedCards.length === 2) {
+      checkMatch();
+    }
+  }
+}
+
+// Check for a match
+function checkMatch() {
+  const [card1, card2] = flippedCards;
+  if (card1.dataset.value === card2.dataset.value) {
+    card1.classList.add("matched");
+    card2.classList.add("matched");
+    flippedCards = [];
+    matchedPairs++;
+
+    if (matchedPairs === memoryCards.length / 2) {
+      showStage(3); // Move to the next stage after all pairs are matched
+    }
   } else {
-    messageElement.innerText = "Incorrect sequence. Try again.";
-    messageElement.style.color = "red";
-    // Reset the sequence and highlight
-    resetStage2();
+    setTimeout(() => {
+      card1.classList.remove("flipped");
+      card2.classList.remove("flipped");
+      card1.innerText = "";
+      card2.innerText = "";
+      flippedCards = [];
+    }, 1000); // Flip back after 1 second
   }
 }
 
-// Function to reset the selected sequence and remove highlights for Stage 2
-function resetStage2() {
-  selectedSequence = []; // Clear the selected sequence
+// Show specific stage
+function showStage(stageNumber) {
+  document.querySelectorAll(".stage").forEach(stage => stage.style.display = "none");
+  const stage = document.getElementById(`stage${stageNumber}`);
+  if (stage) {
+    stage.style.display = "block";
+  } else {
+    console.error(`Stage ${stageNumber} does not exist in the HTML.`);
+  }
 
-  // Remove highlights from all the boxes
-  const boxes = document.querySelectorAll('.box');
-  boxes.forEach(box => box.style.border = 'none');
+  if (stageNumber === 2) {
+    startMemoryGame(); // Initialize memory game for stage 2
+  }
 }
 
-// Check the player's input for the Final Stage
+// Final Stage: Hidden Key Grid Puzzle
 function checkFinalStage() {
-  const input = document.getElementById("final-input").value.toLowerCase();
-  const messageElement = document.getElementById("final-message");
-
-  if (input === "success") {
-    clearInterval(timer); // Stop the timer
-    messageElement.innerText = "Congratulations! You've completed the game.";
-    messageElement.style.color = "green";
-    alert("You win! Don't forget to send 'rb7tk' to Souy on Discord.");
+  const userInput = document.getElementById("final-input").value.toUpperCase();
+  if (userInput === "SUBMIT") {
+    endGame("Congratulations! You've completed the game.");
   } else {
-    messageElement.innerText = "Incorrect key. Try again.";
-    messageElement.style.color = "red";
+    document.getElementById("final-message").innerText = "Incorrect key. Try again.";
   }
 }
 
-// Start the timer automatically when the page loads
-window.onload = function() {
-  startTimer(); // Start the countdown timer
-};
+// End Game Functionality
+function endGame(message) {
+  clearInterval(timerInterval);
+  alert(message);
+  window.location.href = "index.html"; // Redirect to index after game ends
+}
+
+// Start the game when the page loads
+window.onload = initGame;
