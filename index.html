@@ -1,95 +1,62 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Game</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #000;
-      color: #fff;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .container {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-      text-align: center;
-    }
-
-    p {
-      margin-top: 0;
-      font-size: 18px;
-    }
-
-    .avatar-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .avatar-container img {
-      width: 50px; /* Adjust size as needed */
-      height: 50px; /* Adjust size as needed */
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-
-    .avatar-container span {
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .buttons-container {
-      margin-top: 20px;
-    }
-
-    button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      margin: 5px;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-  </style>
+  <title>Welcome to Souy's Game</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="container">
+    <div class="intro-section">
+      <div class="avatar-container">
+        <img src="https://cdn.discordapp.com/avatars/524975380608581644/a_a0184ba5bd36ad3ad1f1e99630043643.gif?size=1024" alt="Discord Avatar">
+      </div>
+      <h1>Welcome to Souy's Game</h1>
+      <p class="intro-text">
+        <strong>Think you're smart enough?</strong> This game isn't for the faint-hearted. You'll need logic, deduction, and keen observation skills to win.
+      </p>
 
-<div class="container">
-  <div class="avatar-container">
-    <img src="https://cdn.discordapp.com/avatars/524975380608581644/a_a0184ba5bd36ad3ad1f1e99630043643.gif?size=1024" alt="Your Discord Avatar">
-    <span>sou.y</span>
+      <div class="rules-box">
+        <h3 class="rules-title">Game Rules:</h3>
+        <ul class="rules-list">
+          <li>You have a maximum of <strong>2 hints</strong> available. Use them wisely!</li>
+          <li>Take your time to read each instruction carefully, but remember, the timer is ticking.</li>
+          <li>If you win, send me a DM on Discord saying "<strong>rb7tk</strong>" to let me know you've succeeded.</li>
+          <li>If you lose, message me with "<strong>rak rb7tni</strong>" so I know you've been defeated.</li>
+          <li><strong>Important:</strong> If you leave the game, you will need to wait 24 hours before you can play again.</li>
+        </ul>
+      </div>
+
+      <p class="intro-note">
+        Click the button below to start the game and test your skills. If you leave, remember to wait 24 hours before trying again!
+      </p>
+      <button onclick="startGame()">Start Game</button>
+    </div>
   </div>
-  <p>Welcome to the game!</p>
 
-  <div class="buttons-container">
-    <button onclick="startGame()">Start</button>
-  </div>
-</div>
+  <script>
+    function startGame() {
+      // Check if the player has already played within the last 24 hours
+      const lastPlayTime = localStorage.getItem('lastPlayTime');
+      if (lastPlayTime) {
+        const timeSinceLastPlay = Date.now() - parseInt(lastPlayTime);
+        const hoursSinceLastPlay = timeSinceLastPlay / (1000 * 60 * 60); // Convert milliseconds to hours
 
-<script>
-function startGame() {
-  if (confirm("Are you ready to start the game?")) {
-    window.location.href = "If you want to win, click me.html";
-  }
-}
-</script>
+        if (hoursSinceLastPlay < 24) {
+          // If less than 24 hours have passed, redirect to timer page
+          window.location.href = "timer.html";
+          return;
+        }
+      }
 
+      // Set the last play time to the current time
+      localStorage.setItem('lastPlayTime', Date.now().toString());
+
+      // Redirect to game page if allowed
+      window.location.href = "game.html";
+    }
+  </script>
 </body>
 </html>
