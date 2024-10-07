@@ -1,37 +1,38 @@
-/* style.css */
-
 /* General Reset and Styling */
 body, html {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #282c34;
+  background-color: #1e1e2d; /* Darker background */
   color: #ffffff;
+  height: 100%;
 }
 
 .container {
-  width: 80%;
-  margin: 0 auto;
-  padding: 20px;
+  width: 90%;
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
   text-align: center;
-  background: #3b3f47;
-  border-radius: 8px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  background: #2c2e3e; /* Darker container background */
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 h1, h2, h3 {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  color: #f1f1f1; /* Softer white */
 }
 
 p {
-  margin: 10px 0;
+  margin: 15px 0;
 }
 
 button {
-  padding: 10px 20px;
-  margin: 10px 0;
+  padding: 12px 25px;
+  margin: 15px 0;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   background: #61dafb;
   color: #282c34;
   font-weight: bold;
@@ -48,7 +49,7 @@ button:active {
 }
 
 .intro-section {
-  background: #444851;
+  background: #343849;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
@@ -64,15 +65,15 @@ button:active {
 }
 
 .rules-box {
-  margin: 20px auto;
-  padding: 15px;
-  background: #565a63;
+  margin: 30px auto;
+  padding: 20px;
+  background: #3f455a;
   border-radius: 10px;
   text-align: left;
 }
 
 .rules-box h3 {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .rules-list {
@@ -81,7 +82,7 @@ button:active {
 }
 
 .rules-list li {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .rules-list strong {
@@ -102,7 +103,7 @@ button:active {
 
 /* Timer Page Styling */
 .countdown {
-  margin: 20px;
+  margin: 30px;
   padding: 15px;
   font-size: 1.5rem;
   background: #ff6f61;
@@ -112,9 +113,9 @@ button:active {
 
 /* Game Page Styling */
 .stage {
-  margin: 30px 0;
+  margin: 40px 0;
   padding: 20px;
-  background: #565a63;
+  background: #44495e;
   border-radius: 10px;
   display: block;
 }
@@ -124,14 +125,14 @@ button:active {
 }
 
 .stage p {
-  margin: 10px 0;
+  margin: 15px 0;
   font-size: 1.1rem;
 }
 
 .stage input {
-  margin: 10px 0;
+  margin: 15px 0;
   padding: 10px;
-  width: 60%;
+  width: 80%;
   border: 2px solid #61dafb;
   border-radius: 5px;
   font-size: 1rem;
@@ -143,82 +144,81 @@ button:active {
 }
 
 #timer {
-  font-size: 1.2rem;
-  margin-bottom: 15px;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
 }
 
 #hint-usage {
-  margin: 10px 0;
-  font-size: 1.1rem;
+  margin: 15px 0;
+  font-size: 1.2rem;
 }
 
 .hint {
   display: none;
   font-style: italic;
   color: #ff6f61;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
-/* Color Box Stage */
-.color-boxes {
+/* Memory Game Grid */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 60px);
+  gap: 15px;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.memory-card {
+  width: 60px;
+  height: 60px;
+  background: #3f455a;
+  color: #ffffff;
+  font-size: 1.2rem;
+  border-radius: 8px;
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin: 20px 0;
-}
-
-.box {
-  width: 50px;
-  height: 50px;
-  border-radius: 5px;
+  align-items: center;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.box:hover {
+.memory-card.flipped, .memory-card.matched {
+  background: #61dafb;
+  color: #282c34;
+  cursor: default;
+}
+
+.memory-card:hover:not(.flipped):not(.matched) {
+  background: #21a1f1;
   transform: scale(1.1);
-}
-
-/* Custom Colors for Color Boxes */
-#box1 {
-  background: #ffd700; /* Gold */
-}
-
-#box2 {
-  background: #ff6347; /* Tomato */
-}
-
-#box3 {
-  background: #87ceeb; /* SkyBlue */
-}
-
-#box4 {
-  background: #32cd32; /* LimeGreen */
 }
 
 /* Final Stage Grid Styling */
 #grid-container {
   display: grid;
-  grid-template-columns: repeat(5, 50px);
-  gap: 10px;
+  grid-template-columns: repeat(5, 60px);
+  gap: 15px;
   justify-content: center;
-  margin: 20px auto;
+  margin: 30px auto;
 }
 
 .grid-item {
-  width: 50px;
-  height: 50px;
-  background: #3b3f47;
+  width: 60px;
+  height: 60px;
+  background: #3f455a;
   color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #61dafb;
-  font-size: 1.2rem;
+  border: 2px solid #61dafb;
+  font-size: 1.4rem;
   cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .grid-item:hover {
   background: #61dafb;
   color: #282c34;
+  transform: scale(1.1);
 }
