@@ -1,0 +1,42 @@
+<!-- timer.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Timer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Sorry, You Need to Wait!</h1>
+    <p>You've already played the game recently. You need to wait for the timer below to expire before you can play again.</p>
+    <div id="countdown" class="countdown">Time Remaining: <span id="time-left"></span></div>
+    <p>Check back once the timer reaches zero.</p>
+    <button onclick="backToMain()">Back to Main Page</button>
+  </div>
+
+  <script>
+    function backToMain() {
+      window.location.href = "index.html";
+    }
+
+    // Calculate remaining time and display it
+    function displayTimeLeft() {
+      const lastPlayTime = localStorage.getItem('lastPlayTime');
+      if (lastPlayTime) {
+        const timeSinceLastPlay = Date.now() - parseInt(lastPlayTime);
+        const timeRemaining = 24 * 60 * 60 * 1000 - timeSinceLastPlay; // 24 hours in milliseconds minus elapsed time
+        const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
+        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+        document.getElementById("time-left").innerText = `${hours}h ${minutes}m ${seconds}s`;
+      }
+    }
+
+    // Update the timer every second
+    setInterval(displayTimeLeft, 1000);
+  </script>
+</body>
+</html>

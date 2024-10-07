@@ -1,0 +1,82 @@
+<!-- game.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decipher the Hidden Code - Advanced Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Decipher the Hidden Code</h1>
+    <p>Test your skills in this multi-stage puzzle game!</p>
+    <div id="timer">Time Left: <span id="timer-value">5:00</span></div> <!-- Timer display -->
+    <div id="hint-usage">Hints Used: <span id="hints-used">0</span> / 2</div> <!-- Hints usage display -->
+
+    <!-- Stage 1: Decrypt the Message -->
+    <div id="stage1" class="stage">
+      <h2>Stage 1: Decrypt the Message</h2>
+      <p>Can you decrypt the message below to find the hidden key?</p>
+      <p id="stage1-text">wklv lv d vhfuhw phvvdjh</p> <!-- Encrypted message -->
+      <button onclick="showHint(1)">Show Hint</button>
+      <p id="hint1" class="hint">Hint: Shift each letter 3 places back to reveal the hidden message.</p>
+      <input type="text" id="stage1-input" placeholder="Enter the decrypted key...">
+      <button onclick="checkStage1()">Submit</button>
+      <p id="message1"></p>
+    </div>
+
+    <!-- Stage 2: Color Box Sequence -->
+    <div id="stage2" class="stage" style="display: none;">
+      <h2>Stage 2: Color Box Sequence</h2>
+      <p>Click the boxes in the correct order to reveal the hidden message.</p>
+      <div class="color-boxes">
+        <div class="box" id="box1" onclick="selectBox(1)"></div>
+        <div class="box" id="box2" onclick="selectBox(2)"></div>
+        <div class="box" id="box3" onclick="selectBox(3)"></div>
+        <div class="box" id="box4" onclick="selectBox(4)"></div>
+      </div>
+      <button onclick="showHint(2)">Show Hint</button>
+      <p id="hint2" class="hint">Hint: Click the boxes in the order of their shades, from lightest to darkest.</p>
+      <button onclick="checkStage2()">Submit</button>
+      <p id="message2"></p>
+    </div>
+
+    <!-- Final Stage: Grid Puzzle -->
+    <div id="final-stage" class="stage" style="display: none;">
+      <h2>Final Stage: Find the Hidden Key</h2>
+      <p>Can you find the hidden key within this grid?</p>
+      <div id="grid-container">
+        <!-- Create a 5x5 grid with random letters and a hidden message -->
+        <div class="grid-item">S</div>
+        <div class="grid-item">J</div>
+        <div class="grid-item">H</div>
+        <div class="grid-item">B</div>
+        <div class="grid-item">N</div>
+        <div class="grid-item">F</div>
+        <div class="grid-item">B</div>
+        <div class="grid-item">O</div>
+        <div class="grid-item">H</div>
+        <div class="grid-item">G</div>
+        <div class="grid-item">V</div>
+        <div class="grid-item">G</div>
+        <div class="grid-item">E</div>
+        <div class="grid-item">S</div>
+        <div class="grid-item">U</div>
+        <div class="grid-item">J</div>
+        <div class="grid-item">H</div>
+        <div class="grid-item">B</div>
+        <div class="grid-item">S</div>
+        <div class="grid-item">V</div>
+      </div>
+      <button onclick="showHint(3)">Show Hint</button>
+      <p id="hint3" class="hint">Hint: The key is hidden diagonally.</p>
+      <input type="text" id="final-input" placeholder="Enter the final key...">
+      <button onclick="checkFinalStage()">Submit</button>
+      <p id="final-message"></p>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

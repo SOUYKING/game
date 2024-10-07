@@ -1,0 +1,224 @@
+/* style.css */
+
+/* General Reset and Styling */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #282c34;
+  color: #ffffff;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background: #3b3f47;
+  border-radius: 8px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+}
+
+h1, h2, h3 {
+  margin-bottom: 15px;
+}
+
+p {
+  margin: 10px 0;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  background: #61dafb;
+  color: #282c34;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #21a1f1;
+}
+
+button:active {
+  background: #1d8cd8;
+}
+
+.intro-section {
+  background: #444851;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.intro-section h1 {
+  font-size: 2.5rem;
+}
+
+.intro-section .intro-text {
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.rules-box {
+  margin: 20px auto;
+  padding: 15px;
+  background: #565a63;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.rules-box h3 {
+  margin-bottom: 10px;
+}
+
+.rules-list {
+  list-style-type: square;
+  padding-left: 20px;
+}
+
+.rules-list li {
+  margin-bottom: 8px;
+}
+
+.rules-list strong {
+  color: #61dafb;
+}
+
+/* Avatar */
+.avatar-container {
+  margin-bottom: 20px;
+}
+
+.avatar-container img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 5px solid #61dafb;
+}
+
+/* Timer Page Styling */
+.countdown {
+  margin: 20px;
+  padding: 15px;
+  font-size: 1.5rem;
+  background: #ff6f61;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+/* Game Page Styling */
+.stage {
+  margin: 30px 0;
+  padding: 20px;
+  background: #565a63;
+  border-radius: 10px;
+  display: block;
+}
+
+.stage h2 {
+  font-size: 1.8rem;
+}
+
+.stage p {
+  margin: 10px 0;
+  font-size: 1.1rem;
+}
+
+.stage input {
+  margin: 10px 0;
+  padding: 10px;
+  width: 60%;
+  border: 2px solid #61dafb;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.stage input:focus {
+  border-color: #21a1f1;
+  outline: none;
+}
+
+#timer {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+#hint-usage {
+  margin: 10px 0;
+  font-size: 1.1rem;
+}
+
+.hint {
+  display: none;
+  font-style: italic;
+  color: #ff6f61;
+  margin-top: 10px;
+}
+
+/* Color Box Stage */
+.color-boxes {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.box {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.box:hover {
+  transform: scale(1.1);
+}
+
+/* Custom Colors for Color Boxes */
+#box1 {
+  background: #ffd700; /* Gold */
+}
+
+#box2 {
+  background: #ff6347; /* Tomato */
+}
+
+#box3 {
+  background: #87ceeb; /* SkyBlue */
+}
+
+#box4 {
+  background: #32cd32; /* LimeGreen */
+}
+
+/* Final Stage Grid Styling */
+#grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 50px);
+  gap: 10px;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.grid-item {
+  width: 50px;
+  height: 50px;
+  background: #3b3f47;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #61dafb;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.grid-item:hover {
+  background: #61dafb;
+  color: #282c34;
+}
