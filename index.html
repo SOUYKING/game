@@ -33,29 +33,49 @@
         Click the button below to start the game and test your skills. If you leave, remember to wait 24 hours before trying again!
       </p>
       <button onclick="startGame()">Start Game</button>
+
+      <!-- Secret Key Input Field (Hidden) -->
+      <div id="owner-section" style="display: none; margin-top: 20px;">
+        <input type="password" id="secret-key" placeholder="Enter Owner Secret Key">
+        <button onclick="overrideTimer()">Override Timer</button>
+      </div>
     </div>
   </div>
 
   <script>
+    // Show the secret key input field by typing a specific URL parameter (e.g., ?showOwner=true)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('showOwner') && urlParams.get('showOwner') === 'true') {
+      document.getElementById('owner-section').style.display = 'block';
+    }
+
     function startGame() {
-      // Check if the player has already played within the last 24 hours
       const lastPlayTime = localStorage.getItem('lastPlayTime');
       if (lastPlayTime) {
         const timeSinceLastPlay = Date.now() - parseInt(lastPlayTime);
         const hoursSinceLastPlay = timeSinceLastPlay / (1000 * 60 * 60); // Convert milliseconds to hours
 
         if (hoursSinceLastPlay < 24) {
-          // If less than 24 hours have passed, redirect to timer page
-          window.location.href = "timer.html";
+          window.location.href = "timer.html"; // If less than 24 hours have passed, redirect to timer page
           return;
         }
       }
 
-      // Set the last play time to the current time
       localStorage.setItem('lastPlayTime', Date.now().toString());
+      window.location.href = "game.html"; // Redirect to game page if allowed
+    }
 
-      // Redirect to game page if allowed
-      window.location.href = "game.html";
+    function overrideTimer() {
+      const secretKey = document.getElementById('secret-key').value;
+      const ownerKey = 'mySecretOwnerKey123'; // Replace this with your secret key
+
+      if (secretKey === ownerKey) {
+        localStorage.removeItem('lastPlayTime'); // Clear the timer for the owner
+        alert('Timer overridden! You can play now.');
+        window.location.href = 'game.html'; // Redirect to the game page immediately
+      } else {
+        alert('Incorrect secret key. Access denied.');
+      }
     }
   </script>
 </body>
