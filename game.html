@@ -26,24 +26,20 @@
       <p id="message1"></p>
     </div>
 
-    <!-- Stage 2: Color Box Sequence -->
+    <!-- Memory Game Grid for Stage 2 -->
     <div id="stage2" class="stage" style="display: none;">
-      <h2>Stage 2: Color Box Sequence</h2>
-      <p>Click the boxes in the correct order to reveal the hidden message.</p>
-      <div class="color-boxes">
-        <div class="box" id="box1" onclick="selectBox(1)"></div>
-        <div class="box" id="box2" onclick="selectBox(2)"></div>
-        <div class="box" id="box3" onclick="selectBox(3)"></div>
-        <div class="box" id="box4" onclick="selectBox(4)"></div>
+      <h2>Stage 2: Memory Matching Game</h2>
+      <p>Match all the pairs to proceed to the final stage.</p>
+      <div id="memory-game" class="memory-grid">
+        <!-- Memory Cards will be generated dynamically with JS -->
       </div>
-      <button onclick="showHint(2)">Show Hint</button>
-      <p id="hint2" class="hint">Hint: Click the boxes in the order of their shades, from lightest to darkest.</p>
-      <button onclick="checkStage2()">Submit</button>
+      <button id="show-hint" onclick="showHint(2)">Show Hint</button>
+      <p id="hint2" class="hint">Hint: All cards will be briefly shown face-up at the start of the game.</p>
       <p id="message2"></p>
     </div>
 
     <!-- Final Stage: Grid Puzzle -->
-    <div id="final-stage" class="stage" style="display: none;">
+    <div id="stage3" class="stage" style="display: none;">
       <h2>Final Stage: Find the Hidden Key</h2>
       <p>Can you find the hidden key within this grid?</p>
       <div id="grid-container">
@@ -52,12 +48,12 @@
         <div class="grid-item">J</div>
         <div class="grid-item">H</div>
         <div class="grid-item">B</div>
-        <div class="grid-item">N</div>
+        <div class="grid-item">M</div>
         <div class="grid-item">F</div>
         <div class="grid-item">B</div>
         <div class="grid-item">O</div>
         <div class="grid-item">H</div>
-        <div class="grid-item">G</div>
+        <div class="grid-item">T</div>
         <div class="grid-item">V</div>
         <div class="grid-item">G</div>
         <div class="grid-item">E</div>
@@ -66,11 +62,11 @@
         <div class="grid-item">J</div>
         <div class="grid-item">H</div>
         <div class="grid-item">B</div>
-        <div class="grid-item">S</div>
+        <div class="grid-item">I</div>
         <div class="grid-item">V</div>
       </div>
       <button onclick="showHint(3)">Show Hint</button>
-      <p id="hint3" class="hint">Hint: The key is hidden diagonally.</p>
+      <p id="hint3" class="hint">Hint: The key is hidden diagonally and starts with 'S'.</p>
       <input type="text" id="final-input" placeholder="Enter the final key...">
       <button onclick="checkFinalStage()">Submit</button>
       <p id="final-message"></p>
